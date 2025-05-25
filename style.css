@@ -1,0 +1,93 @@
+/* style.css */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif; /* More modern */
+  background-color: #f9fafb; /* Softer gray */
+  text-align: center;
+  color: #333; /* Better readability */
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 2rem;
+}
+
+.topics {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.topic-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.topic-card:hover {
+  transform: scale(1.05);
+}
+
+#lesson-area {
+  margin-top: 3rem;
+}
+
+#code-editor {
+  width: 80%;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+iframe {
+  width: 80%;
+  height: 200px;
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: 0;
+  opacity: 0.8;
+  z-index: 9999;
+  animation-name: fall;
+  animation-timing-function: linear;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}

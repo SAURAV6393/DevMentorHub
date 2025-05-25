@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Create a Heading",
+    "instruction": "Write an <h1> tag with text 'Hello World'.",
+    "solution": "<h1>Hello World</h1>"
+  },
+  {
+    "title": "Add a Paragraph",
+    "instruction": "Write a <p> tag with any text.",
+    "solution": "<p>This is a paragraph</p>"
+  }
+]

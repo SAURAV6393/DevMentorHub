@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DevMentorHub</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>DevMentorHub</h1>
+      <p>Your Personal Coding Mentor</p>
+    </header>
+
+    <main>
+      <section class="topics">
+        <div class="topic-card" onclick="startLesson('html')">Learn HTML</div>
+        <div class="topic-card" onclick="startLesson('css')">Learn CSS</div>
+        <div class="topic-card" onclick="startLesson('js')">
+          Learn JavaScript
+        </div>
+      </section>
+      <!-- Add this below the main topics section inside <main> -->
+      <section id="lesson-area" style="display: none">
+        <h2 id="challenge-title">Challenge Title</h2>
+        <p id="challenge-instruction">Instruction will appear here...</p>
+        <textarea
+          id="code-editor"
+          rows="10"
+          cols="60"
+          placeholder="Write your code here..."
+        ></textarea>
+        <br />
+        <button onclick="runCode()">Run</button>
+        <button onclick="resetProgress()">Reset Progress</button>
+
+        <p id="feedback" style="font-weight: bold"></p>
+        <button id="next-btn" onclick="nextChallenge()" disabled>
+          Next Challenge
+        </button>
+
+        <h3>Output:</h3>
+        <iframe id="output-frame"></iframe>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <audio id="success-sound" src="assets/success.mp3" preload="auto"></audio>
+  </body>
+</html>
