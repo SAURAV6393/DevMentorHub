@@ -1,0 +1,15 @@
+[
+  {
+    "topic": "html",
+    "challenges": [
+      {
+        "title": "Create a Heading",
+        "instruction": "Write an HTML page with an <h1> tag that says 'Hello, World!'",
+        "code": "<!-- Write your code here -->",
+        "outputCheck": "<h1>Hello, World!</h1>",
+        "hint": "Use <h1> tag to define the largest heading.",
+        "solution": "<h1>Hello, World!</h1>"
+      }
+    ]
+  }
+]

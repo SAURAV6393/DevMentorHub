@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,20 +9,26 @@
     <header>
       <h1>DevMentorHub</h1>
       <p>Your Personal Coding Mentor</p>
+      <p class="tagline">Learn. Code. Succeed.</p>
     </header>
 
-    <main>
+    <main class="app-container">
       <section class="topics">
         <div class="topic-card" onclick="startLesson('html')">Learn HTML</div>
         <div class="topic-card" onclick="startLesson('css')">Learn CSS</div>
         <div class="topic-card" onclick="startLesson('js')">
           Learn JavaScript
         </div>
+        <div class="topic-card" onclick="startLesson('html')">
+          <h3>🔤 HTML</h3>
+          <p>Basics of HTML</p>
+        </div>
       </section>
-      <!-- Add this below the main topics section inside <main> -->
+
       <section id="lesson-area" style="display: none">
         <h2 id="challenge-title">Challenge Title</h2>
         <p id="challenge-instruction">Instruction will appear here...</p>
+
         <textarea
           id="code-editor"
           rows="10"
@@ -31,6 +36,7 @@
           placeholder="Write your code here..."
         ></textarea>
         <br />
+
         <button onclick="runCode()">Run</button>
         <button onclick="resetProgress()">Reset Progress</button>
 
@@ -38,9 +44,28 @@
         <button id="next-btn" onclick="nextChallenge()" disabled>
           Next Challenge
         </button>
+        <button onclick="getSmartAIHint()">🧠 Get Smart AI Hint</button>
 
         <h3>Output:</h3>
         <iframe id="output-frame"></iframe>
+
+        <div class="ai-help-controls">
+          <button onclick="getAIHint()">💡 Get Hint</button>
+          <button onclick="getAISolution()">🧠 View Solution</button>
+        </div>
+
+        <div class="ai-help-controls">
+          <button onclick="getAIHint()">Get AI Hint</button>
+          <button onclick="getAISolution()">Show AI Solution</button>
+          <button onclick="clearAIResponse()">Clear AI Response</button>
+        </div>
+        <pre id="ai-response" class="ai-response-box"></pre>
+
+        <div id="ai-response" class="ai-response-box"></div>
+
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
       </section>
     </main>
 

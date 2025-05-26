@@ -1,12 +1,17 @@
 [
   {
-    "title": "Create a Heading",
-    "instruction": "Write an <h1> tag with text 'Hello World'.",
-    "solution": "<h1>Hello World</h1>"
+    "title": "Challenge 1",
+    "instruction": "Write a Hello World program",
+    "hint": [
+      "Use the console.log() function",
+      "Make sure to include semicolons"
+    ],
+    "solution": "<!DOCTYPE html><html><body><script>console.log('Hello World');</script></body></html>"
   },
   {
-    "title": "Add a Paragraph",
-    "instruction": "Write a <p> tag with any text.",
-    "solution": "<p>This is a paragraph</p>"
+    "title": "Challenge 2",
+    "instruction": "Add a heading tag",
+    "hint": "Use the <h1> tag",
+    "solution": "<h1>Hello World</h1>"
   }
 ]
