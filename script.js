@@ -3,7 +3,6 @@ let currentChallengeIndex = 0;
 let challenges = [];
 let hintIndex = 0;
 
-// Initial trigger
 function startLesson(topic) {
   currentTopic = topic;
   currentChallengeIndex = 0;
@@ -17,6 +16,9 @@ function loadChallenges() {
     .then((data) => {
       challenges = data;
       showChallenge();
+    })
+    .catch((err) => {
+      console.error("Failed to load challenges:", err);
     });
 }
 
@@ -36,14 +38,11 @@ function showChallenge() {
   document.getElementById("output-frame").srcdoc = "";
   document.getElementById("feedback").textContent = "";
   document.getElementById("next-btn").disabled = true;
-  document.getElementById("ai-response").textContent = "";
+  document.getElementById("ai-response").innerText = "";
   hintIndex = 0;
 
   const progress = JSON.parse(localStorage.getItem("devmentor_progress")) || {};
-  if (
-    progress[currentTopic] &&
-    progress[currentTopic].includes(currentChallengeIndex)
-  ) {
+  if (progress[currentTopic]?.includes(currentChallengeIndex)) {
     document.getElementById("feedback").textContent = "✅ Already Completed!";
     document.getElementById("feedback").style.color = "green";
     document.getElementById("next-btn").disabled = false;
@@ -115,9 +114,9 @@ function launchConfetti() {
       confetti.style.backgroundColor =
         colors[Math.floor(Math.random() * colors.length)];
       confetti.style.left = Math.random() * 100 + "vw";
-      confetti.style.animationDuration = Math.random() * 1 + 0.5 + "s";
+      confetti.style.animationDuration = Math.random() + 0.5 + "s";
       document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 2000);
+      setTimeout(() => confetti.remove(), 1500);
     }
     if (Date.now() < end) requestAnimationFrame(frame);
   })();
@@ -132,11 +131,8 @@ function resetProgress() {
 
 function clearAIResponse() {
   document.getElementById("ai-response").innerText = "";
-  hintIndex = 0; // reset hint counter
+  hintIndex = 0;
 }
-
-// Example AI hints and solutions are already in your challenge JSON
-// You can simulate AI "thinking" with a small delay for better UX
 
 function getAIHint() {
   const challenge = challenges[currentChallengeIndex];
@@ -166,18 +162,26 @@ function getAISolution() {
   const solution = challenge.solution || "No solution available.";
   const responseBox = document.getElementById("ai-response");
 
-  // Simulate AI processing delay
   responseBox.innerText = "🧠 AI is thinking...";
   setTimeout(() => {
     responseBox.innerText = `🧠 Solution:\n${solution}`;
-  }, 800); // 0.8 seconds delay
+  }, 800);
+}
+
+function goBack() {
+  document.getElementById("lesson-area").style.display = "none";
+  document.querySelector(".topics").style.display = "flex";
+  clearAIResponse();
 }
 
 function showProgressOnHome() {
-  let progress = JSON.parse(localStorage.getItem("devmentor_progress")) || {};
+  const progress = JSON.parse(localStorage.getItem("devmentor_progress")) || {};
   const cards = document.querySelectorAll(".topic-card");
+
   cards.forEach((card) => {
     const topic = card.getAttribute("data-topic");
+    if (!topic) return;
+
     const completed = progress[topic]?.length || 0;
     card.innerHTML += `<br><small>✅ ${completed} completed</small>`;
   });

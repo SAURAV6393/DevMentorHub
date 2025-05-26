@@ -13,18 +13,35 @@
     </header>
 
     <main class="app-container">
+      <!-- Topics Section -->
       <section class="topics">
-        <div class="topic-card" onclick="startLesson('html')">Learn HTML</div>
-        <div class="topic-card" onclick="startLesson('css')">Learn CSS</div>
-        <div class="topic-card" onclick="startLesson('js')">
-          Learn JavaScript
-        </div>
-        <div class="topic-card" onclick="startLesson('html')">
+        <div
+          class="topic-card"
+          style="animation-delay: 0s"
+          onclick="startLesson('html')"
+        >
           <h3>🔤 HTML</h3>
           <p>Basics of HTML</p>
         </div>
+        <div
+          class="topic-card"
+          style="animation-delay: 0.1s"
+          onclick="startLesson('css')"
+        >
+          <h3>🎨 CSS</h3>
+          <p>Style your pages</p>
+        </div>
+        <div
+          class="topic-card"
+          style="animation-delay: 0.2s"
+          onclick="startLesson('js')"
+        >
+          <h3>🧠 JavaScript</h3>
+          <p>Add interactivity</p>
+        </div>
       </section>
 
+      <!-- Lesson Area -->
       <section id="lesson-area" style="display: none">
         <h2 id="challenge-title">Challenge Title</h2>
         <p id="challenge-instruction">Instruction will appear here...</p>
@@ -44,6 +61,9 @@
         <button id="next-btn" onclick="nextChallenge()" disabled>
           Next Challenge
         </button>
+        <button id="back-btn" onclick="goBack()" style="margin-top: 1rem">
+          🔙 Back to Topics
+        </button>
         <button onclick="getSmartAIHint()">🧠 Get Smart AI Hint</button>
 
         <h3>Output:</h3>
@@ -52,16 +72,10 @@
         <div class="ai-help-controls">
           <button onclick="getAIHint()">💡 Get Hint</button>
           <button onclick="getAISolution()">🧠 View Solution</button>
+          <button onclick="clearAIResponse()">🧹 Clear AI Response</button>
         </div>
 
-        <div class="ai-help-controls">
-          <button onclick="getAIHint()">Get AI Hint</button>
-          <button onclick="getAISolution()">Show AI Solution</button>
-          <button onclick="clearAIResponse()">Clear AI Response</button>
-        </div>
         <pre id="ai-response" class="ai-response-box"></pre>
-
-        <div id="ai-response" class="ai-response-box"></div>
 
         <div class="progress-bar-wrapper">
           <div class="progress-bar" id="progress-bar"></div>
