@@ -2,15 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>DevMentorHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevMentorHub - Daily HTML Challenge</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Header -->
     <header>
       <h1>DevMentorHub</h1>
       <p>Your Personal Coding Mentor</p>
       <p class="tagline">Learn. Code. Succeed.</p>
     </header>
+
+    <!-- Daily Challenge -->
+    <div class="container">
+      <h1>🔔 Daily Challenge</h1>
+      <div class="challenge-box">
+        <h2 id="challenge-title">Loading...</h2>
+        <p id="challenge-desc"></p>
+        <span id="challenge-difficulty"></span>
+      </div>
+    </div>
 
     <main class="app-container">
       <!-- Topics Section -->
@@ -54,24 +66,24 @@
         ></textarea>
         <br />
 
-        <button onclick="runCode()">Run</button>
-        <button onclick="resetProgress()">Reset Progress</button>
+        <button onclick="runCode()">▶️ Run</button>
+        <button onclick="resetProgress()">🔄 Reset Progress</button>
+        <button onclick="getSmartAIHint()">🧠 Get Smart AI Hint</button>
 
         <p id="feedback" style="font-weight: bold"></p>
         <button id="next-btn" onclick="nextChallenge()" disabled>
-          Next Challenge
+          ⏭️ Next Challenge
         </button>
         <button id="back-btn" onclick="goBack()" style="margin-top: 1rem">
           🔙 Back to Topics
         </button>
-        <button onclick="getSmartAIHint()">🧠 Get Smart AI Hint</button>
 
         <h3>Output:</h3>
         <iframe id="output-frame"></iframe>
 
         <div class="ai-help-controls">
           <button onclick="getAIHint()">💡 Get Hint</button>
-          <button onclick="getAISolution()">🧠 View Solution</button>
+          <button onclick="getAISolution()">📘 View Solution</button>
           <button onclick="clearAIResponse()">🧹 Clear AI Response</button>
         </div>
 
@@ -83,6 +95,7 @@
       </section>
     </main>
 
+    <!-- Scripts & Sound -->
     <script src="script.js"></script>
     <audio id="success-sound" src="assets/success.mp3" preload="auto"></audio>
   </body>

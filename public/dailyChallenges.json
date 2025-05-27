@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Create a Simple HTML Form",
+    "difficulty": "Easy",
+    "category": "HTML",
+    "description": "Create a form with input fields for name, email, and a submit button."
+  },
+  {
+    "id": 2,
+    "title": "HTML Table Layout",
+    "difficulty": "Medium",
+    "category": "HTML",
+    "description": "Create an HTML table that displays a list of students with name, age, and grade."
+  },
+  {
+    "id": 3,
+    "title": "HTML Semantic Elements",
+    "difficulty": "Easy",
+    "category": "HTML",
+    "description": "Create a simple blog layout using semantic HTML tags like <header>, <article>, <section>, and <footer>."
+  }
+]

@@ -36,16 +36,21 @@ function showChallenge() {
     challenge.instruction;
   document.getElementById("code-editor").value = "";
   document.getElementById("output-frame").srcdoc = "";
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("next-btn").disabled = true;
-  document.getElementById("ai-response").innerText = "";
+  const feedbackEl = document.getElementById("feedback");
+  const nextBtn = document.getElementById("next-btn");
+  const aiBox = document.getElementById("ai-response");
+
+  feedbackEl.textContent = "";
+  feedbackEl.style.color = "";
+  nextBtn.disabled = true;
+  aiBox.innerText = "";
   hintIndex = 0;
 
   const progress = JSON.parse(localStorage.getItem("devmentor_progress")) || {};
   if (progress[currentTopic]?.includes(currentChallengeIndex)) {
-    document.getElementById("feedback").textContent = "✅ Already Completed!";
-    document.getElementById("feedback").style.color = "green";
-    document.getElementById("next-btn").disabled = false;
+    feedbackEl.textContent = "✅ Already Completed!";
+    feedbackEl.style.color = "green";
+    nextBtn.disabled = false;
   }
 }
 
@@ -54,17 +59,14 @@ function runCode() {
   const correctCode = challenges[currentChallengeIndex].solution.trim();
   const feedbackEl = document.getElementById("feedback");
   const nextBtn = document.getElementById("next-btn");
-
   document.getElementById("output-frame").srcdoc = userCode;
 
   if (normalizeHTML(userCode) === normalizeHTML(correctCode)) {
     feedbackEl.textContent = "✅ Correct!";
     feedbackEl.style.color = "green";
     nextBtn.disabled = false;
-
     document.getElementById("success-sound").currentTime = 0;
     document.getElementById("success-sound").play();
-
     saveProgress(currentTopic, currentChallengeIndex);
     launchConfetti();
   } else {
@@ -75,7 +77,9 @@ function runCode() {
 }
 
 function normalizeHTML(html) {
-  return html.replace(/\s+/g, "").toLowerCase();
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
+  return tempDiv.textContent.replace(/\s+/g, "").toLowerCase();
 }
 
 function nextChallenge() {
@@ -108,7 +112,7 @@ function launchConfetti() {
   const colors = ["#bb0000", "#ffffff", "#00bb00", "#0000bb"];
 
   (function frame() {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
       confetti.style.backgroundColor =
@@ -161,54 +165,73 @@ function getAISolution() {
   const challenge = challenges[currentChallengeIndex];
   const solution = challenge.solution || "No solution available.";
   const responseBox = document.getElementById("ai-response");
-
   responseBox.innerText = "🧠 AI is thinking...";
   setTimeout(() => {
     responseBox.innerText = `🧠 Solution:\n${solution}`;
   }, 800);
 }
 
+function getSmartAIHint() {
+  const code = document.getElementById("code-editor").value;
+  const instruction = challenges[currentChallengeIndex].instruction;
+  const responseBox = document.getElementById("ai-response");
+  responseBox.innerText = "🤖 Thinking...";
+
+  fetch("http://localhost:3000/api/ai-hint", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code, instruction }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      responseBox.innerText = "💡 AI Hint: " + data.reply;
+    })
+    .catch((error) => {
+      responseBox.innerHTML =
+        "❌ Failed to get AI response. <button onclick='getSmartAIHint()'>Retry</button>";
+      console.error(error);
+    });
+}
+
 function goBack() {
   document.getElementById("lesson-area").style.display = "none";
   document.querySelector(".topics").style.display = "flex";
   clearAIResponse();
+  currentChallengeIndex = 0;
+  hintIndex = 0;
 }
 
 function showProgressOnHome() {
   const progress = JSON.parse(localStorage.getItem("devmentor_progress")) || {};
-  const cards = document.querySelectorAll(".topic-card");
-
-  cards.forEach((card) => {
+  document.querySelectorAll(".topic-card").forEach((card) => {
     const topic = card.getAttribute("data-topic");
     if (!topic) return;
-
     const completed = progress[topic]?.length || 0;
     card.innerHTML += `<br><small>✅ ${completed} completed</small>`;
   });
 }
 
-async function getSmartAIHint() {
-  const code = document.getElementById("code-editor").value;
-  const instruction = challenges[currentChallengeIndex].instruction;
-  const responseBox = document.getElementById("ai-response");
-
-  responseBox.innerText = "🤖 Thinking...";
-
-  try {
-    const res = await fetch("http://localhost:3000/api/ai-hint", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code, instruction }),
-    });
-
-    const data = await res.json();
-    responseBox.innerText = "💡 AI Hint: " + data.reply;
-  } catch (error) {
-    responseBox.innerText = "❌ Failed to get AI response.";
-    console.error(error);
-  }
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark-mode") ? "dark" : "light"
+  );
 }
+
+fetch("dailyChallenges.json")
+  .then((res) => res.json())
+  .then((data) => {
+    const htmlChallenges = data.filter((q) => q.category === "HTML");
+    const today = new Date();
+    const index = today.getDate() % htmlChallenges.length;
+    const challenge = htmlChallenges[index];
+    document.getElementById("challenge-title").innerText = challenge.title;
+    document.getElementById("challenge-desc").innerText = challenge.description;
+    document.getElementById(
+      "challenge-difficulty"
+    ).innerText = `Difficulty: ${challenge.difficulty}`;
+  })
+  .catch((err) => console.error("Error loading daily challenge:", err));
 
 window.onload = showProgressOnHome;
